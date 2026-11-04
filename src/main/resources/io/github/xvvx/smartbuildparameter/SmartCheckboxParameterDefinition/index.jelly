@@ -1,0 +1,28 @@
+<?jelly escape-by-default='true'?>
+<j:jelly xmlns:j="jelly:core" xmlns:f="/lib/form">
+  <j:set var="escapeEntryTitleAndDescription" value="false"/>
+  <f:entry title="${h.escape(it.name)}" description="${it.formattedDescription}">
+    <div name="parameter">
+      <input type="hidden" name="name" value="${it.name}"/>
+      <div class="smart-param-checkbox-group"
+           data-smart-param="checkbox"
+           data-min-selected="${it.minSelected}"
+           data-min-message="${%min_selected_message(it.name, it.minSelected)}"
+           data-delimiter="${it.delimiter}">
+        <!-- json="${opt}": structured-form submission sends the option value when checked
+             (buildFormTree binds bare checkboxes to booleans otherwise); unchecked ones are omitted. -->
+        <j:forEach var="opt" items="${it.optionList}">
+          <label class="smart-param-checkbox">
+            <!-- checked must evaluate to null (attribute omitted) when not default-checked:
+                 a literal checked="false" is still PRESENT, and HTML treats presence as checked. -->
+            <input type="checkbox" name="value" value="${opt}" json="${opt}" checked="${it.isDefaultChecked(opt) ? 'true' : null}"/>
+            <span>${opt}</span>
+          </label>
+        </j:forEach>
+      </div>
+      <link rel="stylesheet" href="${resURL}/plugin/smart-build-parameter-plugin/css/smart-params.css"/>
+    </div>
+  </f:entry>
+  <!-- Explicit closing tag: HTML <script/> must not be self-closing. Idempotent JS, see smart-params.js. -->
+  <script src="${resURL}/plugin/smart-build-parameter-plugin/js/smart-params.js"></script>
+</j:jelly>

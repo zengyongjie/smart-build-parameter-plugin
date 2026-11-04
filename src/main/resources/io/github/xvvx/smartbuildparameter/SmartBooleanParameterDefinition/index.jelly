@@ -1,0 +1,16 @@
+<?jelly escape-by-default='true'?>
+<j:jelly xmlns:j="jelly:core" xmlns:f="/lib/form">
+  <j:set var="escapeEntryTitleAndDescription" value="false"/>
+  <f:entry description="${it.formattedDescription}">
+    <div name="parameter">
+      <input type="hidden" name="name" value="${it.name}"/>
+      <!-- data-controls: js/smart-params.js hides the named parameter blocks while unchecked
+           (core `field-disabled` → not submitted, decision D1). -->
+      <span data-smart-param="boolean" data-controls="${it.controls}">
+        <f:checkbox title="${h.escape(it.name)}" name="value" checked="${it.defaultValue}"/>
+      </span>
+    </div>
+  </f:entry>
+  <!-- Explicit closing tag: HTML <script/> must not be self-closing. Idempotent JS, see smart-params.js. -->
+  <script src="${resURL}/plugin/smart-build-parameter-plugin/js/smart-params.js"></script>
+</j:jelly>

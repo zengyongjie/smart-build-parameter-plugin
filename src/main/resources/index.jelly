@@ -1,0 +1,6 @@
+<?jelly escape-by-default='true'?>
+<div>
+  Smart build parameters for declarative pipelines: multi-select checkboxes, conditional
+  show/hide, and filterable dropdowns backed by shell commands or HTTP endpoints.
+  See <a href="https://github.com/xvvx/smart-build-parameter-plugin">the repository</a> for details.
+</div>

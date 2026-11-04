@@ -1,0 +1,31 @@
+<?jelly escape-by-default='true'?>
+<j:jelly xmlns:j="jelly:core" xmlns:f="/lib/form">
+  <f:entry title="${%Name}" field="name">
+    <f:textbox/>
+  </f:entry>
+  <f:entry title="${%Select Mode}" field="selectMode">
+    <f:radio name="_.selectMode" value="single"
+             checked="${instance == null || !instance.multiple}" title="${%Single}"/>
+    <f:radio name="_.selectMode" value="multiple"
+             checked="${instance != null &amp;&amp; instance.multiple}" title="${%Multiple}"/>
+  </f:entry>
+  <f:entry title="${%Filterable}" field="filterable">
+    <f:radio name="_.filterable" value="true"
+             checked="${instance == null || instance.filterable}" title="${%Yes}"/>
+    <f:radio name="_.filterable" value="false"
+             checked="${instance != null &amp;&amp; !instance.filterable}" title="${%No}"/>
+  </f:entry>
+  <f:entry title="${%Default Value}" field="defaultValue">
+    <f:textbox/>
+  </f:entry>
+  <f:entry title="${%Delimiter}" field="delimiter">
+    <f:textbox default=","/>
+  </f:entry>
+  <!-- FR-3 行为规范 1: source configuration lives in the collapsed Advanced section. -->
+  <f:advanced>
+    <f:dropdownDescriptorSelector field="source" title="${%Source}"/>
+  </f:advanced>
+  <f:entry title="${%Description}" field="description">
+    <f:textarea/>
+  </f:entry>
+</j:jelly>

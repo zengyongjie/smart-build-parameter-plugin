@@ -1,0 +1,24 @@
+<?jelly escape-by-default='true'?>
+<!-- FR-6: build-history Parameters page row for smartCheckbox / multi smartSelect values.
+     Renders one chip per selected value plus the raw joined string; long values truncate
+     via css/smart-values.css with the full text on hover (title). Row shape mirrors core's
+     StringParameterValue/value.jelly (f:entry + manual h.escape, SECURITY-353 idiom). -->
+<j:jelly xmlns:j="jelly:core" xmlns:f="/lib/form">
+  <j:set var="escapeEntryTitleAndDescription" value="false"/>
+  <f:entry title="${h.escape(it.name)}" description="${it.formattedDescription}">
+    <link rel="stylesheet" href="${resURL}/plugin/smart-build-parameter-plugin/css/smart-values.css"/>
+    <span class="sbpd-values">
+      <j:choose>
+        <j:when test="${it.choices.isEmpty()}">
+          <code class="sbpd-raw sbpd-raw--empty">${%EmptySelection}</code>
+        </j:when>
+        <j:otherwise>
+          <j:forEach var="choice" items="${it.choices}">
+            <span class="sbpd-chip" title="${choice}">${choice}</span>
+          </j:forEach>
+          <code class="sbpd-raw" title="${it.value}">${it.value}</code>
+        </j:otherwise>
+      </j:choose>
+    </span>
+  </f:entry>
+</j:jelly>

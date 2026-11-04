@@ -1,0 +1,8 @@
+<?jelly escape-by-default='true'?>
+<j:jelly xmlns:j="jelly:core">
+  <!-- FR-5: append-only injection, only on the Build With Parameters page. -->
+  <j:if test="${it.buildParametersPage}">
+    <link rel="stylesheet" href="${rootURL}/plugin/smart-build-parameter-plugin/css/smart-build-page.css" type="text/css"/>
+    <script src="${rootURL}/plugin/smart-build-parameter-plugin/js/smart-build-page.js" defer="defer"></script>
+  </j:if>
+</j:jelly>

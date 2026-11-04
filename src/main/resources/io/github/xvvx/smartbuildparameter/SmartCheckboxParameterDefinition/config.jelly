@@ -1,0 +1,21 @@
+<?jelly escape-by-default='true'?>
+<j:jelly xmlns:j="jelly:core" xmlns:f="/lib/form">
+  <f:entry title="${%Name}" field="name">
+    <f:textbox/>
+  </f:entry>
+  <f:entry title="${%Options}" field="options">
+    <f:textarea/>
+  </f:entry>
+  <f:entry title="${%Default Checked}" field="defaultChecked">
+    <f:textbox/>
+  </f:entry>
+  <f:entry title="${%Delimiter}" field="delimiter">
+    <f:textbox default=","/>
+  </f:entry>
+  <f:entry title="${%Minimum Selected}" field="minSelected">
+    <f:number min="0" clazz="number"/>
+  </f:entry>
+  <f:entry title="${%Description}" field="description">
+    <f:textarea/>
+  </f:entry>
+</j:jelly>

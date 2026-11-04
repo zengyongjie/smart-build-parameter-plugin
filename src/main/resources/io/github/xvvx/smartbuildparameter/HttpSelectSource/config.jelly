@@ -1,0 +1,37 @@
+<?jelly escape-by-default='true'?>
+<j:jelly xmlns:j="jelly:core" xmlns:f="/lib/form">
+  <f:entry title="${%URL}" field="url">
+    <f:textbox placeholder="https://…"/>
+  </f:entry>
+  <f:entry title="${%Response Type}" field="responseType">
+    <f:radio name="_.responseType" value="jsonArray"
+             checked="${instance == null || instance.responseType == 'jsonArray'}" title="${%JSON array}"/>
+    <f:radio name="_.responseType" value="jsonPath"
+             checked="${instance != null &amp;&amp; instance.responseType == 'jsonPath'}" title="${%JSON path}"/>
+    <f:radio name="_.responseType" value="textLines"
+             checked="${instance != null &amp;&amp; instance.responseType == 'textLines'}" title="${%Text lines}"/>
+  </f:entry>
+  <f:entry title="${%JSON Path}" field="jsonPath">
+    <f:textbox placeholder="data.list[*].name"/>
+  </f:entry>
+  <f:entry title="${%Authentication}" field="authType">
+    <f:radio name="_.authType" value="none"
+             checked="${instance == null || instance.authType == 'none'}" title="${%None}"/>
+    <f:radio name="_.authType" value="basic"
+             checked="${instance != null &amp;&amp; instance.basicAuth}" title="${%Basic}"/>
+    <f:radio name="_.authType" value="bearer"
+             checked="${instance != null &amp;&amp; instance.bearerAuth}" title="${%Bearer}"/>
+  </f:entry>
+  <f:entry title="${%Credential}" field="credentialsId">
+    <f:select/>
+  </f:entry>
+  <f:entry title="${%Timeout (seconds)}" field="timeoutSeconds">
+    <f:number min="1" default="10"/>
+  </f:entry>
+  <f:entry title="${%Cache TTL (seconds)}" field="cacheTtlSeconds">
+    <f:number min="0" default="0"/>
+  </f:entry>
+  <f:entry title="${%Max Output (bytes)}" field="maxOutputBytes">
+    <f:number min="1" default="65536"/>
+  </f:entry>
+</j:jelly>

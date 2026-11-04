@@ -1,0 +1,30 @@
+/* Smart Build Parameter Plugin — smartCheckbox group + shared parameter controls.
+   The option labels render at the form's normal text size with roomy, aligned checkboxes
+   (some engines default bare labels to a much smaller font inside Jenkins forms). */
+.smart-param-checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.smart-param-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0.15rem 0;
+  font-size: var(--font-size, 1rem);
+  cursor: pointer;
+}
+
+.smart-param-checkbox input[type="checkbox"] {
+  width: 1rem;
+  height: 1rem;
+  margin: 0;
+  flex: none;
+}
+
+.smart-param-checkbox-group[data-error="true"] {
+  outline: 1px solid var(--error-color, #cd201f);
+  outline-offset: 2px;
+  border-radius: 4px;
+}

@@ -1,0 +1,70 @@
+/* Smart Build Parameter Plugin — build-history Parameters page value presentation (FR-6).
+   Scoped under .sbpd-values, emitted only by this plugin's value.jelly views (wherever a
+   SmartBoolean/SmartMulti value renders — build Parameters page, replay, rebuild). All
+   markup is plain inline elements: without this stylesheet everything still reads as text.
+   Same design language as FR-5 (css/smart-build-page.css): Jenkins CSS vars + fallbacks. */
+
+.sbpd-values {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+  max-width: 48rem;
+  min-width: 0;
+}
+
+/* One chip per selected value; long values truncate, full text on hover (title). */
+.sbpd-values .sbpd-chip {
+  display: inline-flex;
+  align-items: center;
+  max-width: 18rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 0.1rem 0.6rem;
+  border-radius: 999px;
+  font-size: var(--font-size-sm, 0.85rem);
+  background: var(--panel-bg-color, #f8f8f8);
+  border: 1px solid var(--input-border, #d5d5d5);
+  color: var(--text-color, #333);
+}
+
+/* The raw joined string next to the chips — the exact submitted value (D2). */
+.sbpd-values .sbpd-raw {
+  display: inline-block;
+  max-width: 36rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  vertical-align: middle;
+  font-size: var(--font-size-sm, 0.85rem);
+  color: var(--text-color-secondary, #666);
+  background: transparent;
+  padding: 0;
+}
+
+.sbpd-values .sbpd-raw--empty {
+  color: var(--text-color-secondary, #999);
+}
+
+/* Boolean badge (FR-6): success-tinted for true, neutral for false. */
+.sbpd-values .sbpd-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.05rem 0.6rem;
+  border-radius: 6px;
+  font-size: var(--font-size-sm, 0.85rem);
+  font-weight: var(--font-weight-bold, 600);
+}
+
+.sbpd-values .sbpd-badge--true {
+  color: var(--success-color, #138a36);
+  background: rgba(26, 138, 64, 0.12);
+  border: 1px solid rgba(26, 138, 64, 0.4);
+}
+
+.sbpd-values .sbpd-badge--false {
+  color: var(--text-color, #333);
+  background: var(--panel-bg-color, #f0f0f0);
+  border: 1px solid var(--input-border, #d5d5d5);
+}

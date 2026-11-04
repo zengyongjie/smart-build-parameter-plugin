@@ -1,0 +1,9 @@
+<div>
+  A boolean parameter that shows or hides other parameters on the Build With Parameters page.
+  Checking it reveals the parameters listed in <strong>Controls</strong>; unchecking hides them.
+  Hidden parameters are <strong>not submitted</strong> with the build (they are absent from
+  <code>params</code> and the build's environment), matching decision D1. Hidden parameters are
+  also exempt from client-side validation such as <code>smartCheckbox</code>'s minimum-selection
+  rule. Chained/nested visibility is not evaluated in phase 1 — each parameter's visibility
+  depends only on its own controller.
+</div>

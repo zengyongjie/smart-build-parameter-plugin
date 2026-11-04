@@ -1,0 +1,56 @@
+<?jelly escape-by-default='true'?>
+<j:jelly xmlns:j="jelly:core" xmlns:f="/lib/form">
+  <!-- Evaluate the source ONCE per render (uncached sources re-execute per 行为规范 5). -->
+  <j:set var="result" value="${it.optionsOrError}"/>
+  <j:set var="escapeEntryTitleAndDescription" value="false"/>
+  <f:entry title="${h.escape(it.name)}" description="${it.formattedDescription}">
+    <div name="parameter">
+      <input type="hidden" name="name" value="${it.name}"/>
+      <div class="smart-select" data-smart-param="select"
+           data-mode="${it.multiple ? 'multiple' : 'single'}"
+           data-filterable="${it.filterableEnabled ? 'true' : 'false'}"
+           data-delimiter="${it.delimiter}"
+           data-filter-placeholder="${%filter_placeholder}"
+           data-no-options="${%no_options}"
+           data-retry-url="${rootURL}/smart-build-parameter/reloadOptions">
+        <j:choose>
+          <j:when test="${result.error != null}">
+            <!-- FR-3 行为规范 4: inline error + retry, no value control ⇒ the parameter
+                 cannot be submitted in this state, and the page stays functional. -->
+            <div class="smart-select-error" data-smart-select-error="true">
+              <span class="error">${h.escape(result.error)}</span>
+              <button type="button" class="smart-select-retry jenkins-button">${%retry}</button>
+            </div>
+          </j:when>
+          <j:otherwise>
+            <button type="button" class="jenkins-button smart-select-box" aria-expanded="false">
+              <span class="smart-select-value">${h.escape(it.displayValue)}</span>
+            </button>
+            <div class="smart-select-list" style="display:none">
+              <j:if test="${it.filterableEnabled}">
+                <input type="text" class="smart-select-filter" placeholder="${%filter_placeholder}" autocomplete="off"/>
+              </j:if>
+              <div class="smart-select-options">
+                <j:forEach var="opt" items="${result.options}">
+                  <label class="smart-select-option">
+                    <input type="${it.multiple ? 'checkbox' : 'radio'}" name="value" value="${opt}" json="${opt}"
+                           checked="${it.isDefaultSelected(opt, result.options) ? 'true' : null}"/>
+                    <span>${opt}</span>
+                  </label>
+                </j:forEach>
+                <j:if test="${result.options.isEmpty()}">
+                  <div class="smart-select-empty">${%no_options}</div>
+                </j:if>
+              </div>
+              <!-- Multiple mode applies selections live (smart-select.js); no confirm button —
+                   a conventional single-line dropdown multi-select closes on outside click/Esc. -->
+            </div>
+          </j:otherwise>
+        </j:choose>
+      </div>
+      <link rel="stylesheet" href="${resURL}/plugin/smart-build-parameter-plugin/css/smart-select.css"/>
+      <!-- Explicit closing tag: HTML <script/> must not be self-closing. Idempotent JS. -->
+      <script src="${resURL}/plugin/smart-build-parameter-plugin/js/smart-select.js"></script>
+    </div>
+  </f:entry>
+</j:jelly>

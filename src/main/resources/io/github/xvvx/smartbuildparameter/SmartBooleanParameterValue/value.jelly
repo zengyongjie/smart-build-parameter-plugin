@@ -1,0 +1,13 @@
+<?jelly escape-by-default='true'?>
+<!-- FR-6: build-history Parameters page row for smartBoolean — a true/false badge instead
+     of a readonly checkbox. Row shape mirrors core's BooleanParameterValue/value.jelly
+     (f:entry + manual h.escape, SECURITY-353 idiom). -->
+<j:jelly xmlns:j="jelly:core" xmlns:f="/lib/form">
+  <j:set var="escapeEntryTitleAndDescription" value="false"/>
+  <f:entry title="${h.escape(it.name)}" description="${it.formattedDescription}">
+    <link rel="stylesheet" href="${resURL}/plugin/smart-build-parameter-plugin/css/smart-values.css"/>
+    <span class="sbpd-values">
+      <span class="sbpd-badge ${it.value ? 'sbpd-badge--true' : 'sbpd-badge--false'}" title="${it.value}">${it.value}</span>
+    </span>
+  </f:entry>
+</j:jelly>

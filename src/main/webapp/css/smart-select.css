@@ -1,0 +1,98 @@
+/* Smart Build Parameter Plugin — smartSelect dropdown widget (FR-3/FR-4).
+   Conventional single-line combobox: a one-line trigger with the joined selection
+   (ellipsis on overflow) and an absolutely positioned checkbox/radio panel.
+   Uses Jenkins theme CSS variables where available, with light-theme fallbacks. */
+.smart-select {
+  position: relative;
+  max-width: 32rem;
+  min-width: 14rem;
+}
+
+/* Trigger: ONE line, standard control height; long joined values ellipsize. */
+.smart-select-box {
+  width: 100%;
+  justify-content: space-between;
+  text-align: left;
+  white-space: nowrap;
+  min-height: 2.25rem;
+}
+
+.smart-select-value {
+  display: inline-block;
+  max-width: calc(100% - 1.25rem);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: middle;
+  font-size: var(--font-size, 1rem);
+}
+
+.smart-select-value:empty::before {
+  content: "—"; /* nothing selected yet */
+  opacity: 0.5;
+}
+
+/* Dropdown panel overlays the form; dismissed by outside click / Esc (smart-select.js). */
+.smart-select-list {
+  position: absolute;
+  z-index: 1000;
+  width: 100%;
+  margin-top: 4px;
+  padding: 8px;
+  background: var(--panel-header-bg, #f8f8f8);
+  border: 1px solid var(--input-border, #d5d5d5);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.smart-select-filter {
+  width: 100%;
+  margin-bottom: 6px;
+}
+
+.smart-select-options {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  max-height: 16rem;
+  overflow-y: auto;
+}
+
+/* Options read at the form's normal text size (not the engine's label default). */
+.smart-select-option {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 4px;
+  font-size: var(--font-size, 1rem);
+  cursor: pointer;
+}
+
+.smart-select-option input[type="checkbox"],
+.smart-select-option input[type="radio"] {
+  width: 1rem;
+  height: 1rem;
+  margin: 0;
+  flex: none;
+}
+
+.smart-select-option span {
+  overflow-wrap: anywhere;
+}
+
+.smart-select-empty {
+  padding: 4px;
+  opacity: 0.7;
+  font-size: var(--font-size, 1rem);
+}
+
+.smart-select-error {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  font-size: var(--font-size, 1rem);
+}
+
+.smart-select-error .error {
+  color: var(--error-color, #cd201f);
+}

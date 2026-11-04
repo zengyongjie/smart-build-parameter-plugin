@@ -1,0 +1,15 @@
+<?jelly escape-by-default='true'?>
+<j:jelly xmlns:j="jelly:core" xmlns:f="/lib/form">
+  <f:entry title="${%Command}" field="command">
+    <f:textarea/>
+  </f:entry>
+  <f:entry title="${%Timeout (seconds)}" field="timeoutSeconds">
+    <f:number min="1" default="5"/>
+  </f:entry>
+  <f:entry title="${%Cache TTL (seconds)}" field="cacheTtlSeconds">
+    <f:number min="0" default="0"/>
+  </f:entry>
+  <f:entry title="${%Max Output (bytes)}" field="maxOutputBytes">
+    <f:number min="1" default="65536"/>
+  </f:entry>
+</j:jelly>
